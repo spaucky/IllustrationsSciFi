@@ -18,4 +18,3 @@ total_scientific_art = sum(keywords_scientific_img_num)
 
 print('Total artistic plant drawings: ' + str(total_plant_art))
 print('Total plant scientific illustrations: ' + str(total_scientific_art))
-
