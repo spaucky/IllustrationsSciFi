@@ -16,12 +16,16 @@ font_dictionary = {'family': 'Arial', 'color': 'black', 'weight': 'normal', 'siz
 I NEED TO SORT THE IMAGES SO THAT THEY HAVE THE CORRECT VALUES AND ARE IN THE CORRECT ORDER
 """
 
-x_values = np.arange(1,13,1)
+image_df = image_df.rename(columns={'images':'order','images.1':'images'})
+x_values = image_df['order']
 y_values = image_df['values']
 
 #creating list of file paths to access the images
-image_paths = os.listdir(os.path.join('OurDrawings','images'))[1:]
-image_paths = ['OurDrawings/images/' + image for image in image_paths]
+image_paths = os.listdir(os.path.join('OurDrawings','Images'))
+if '.DS_Store' in os.listdir(os.path.join('OurDrawings','Images')):
+    image_paths.remove('.DS_Store')
+
+image_paths = ['OurDrawings/images/' + image for image in image_df['images']]
 
 # Create a figure and axis
 fig, ax = plt.subplots(figsize=(20,10))
@@ -33,7 +37,8 @@ scatter = ax.scatter(x_values, y_values, s=10, marker='o')
 for x, y, img_path, colour in zip(x_values, y_values, image_paths, image_df['ScientificOrNot']):
     img = Image.open(img_path)
     #converting images to squares for the plot
-    sqrDims = np.ceil(np.sqrt(img.size[0]*img.size[1])).astype(int)
+    #sqrDims = np.ceil(np.sqrt(img.size[0]*img.size[1])).astype(int)
+    sqrDims = 1600
     resize = img.resize((sqrDims, sqrDims))
     #creating squares to act as frames
     square_length = resize.size[0] + 70
@@ -57,20 +62,20 @@ for x, y, img_path, colour in zip(x_values, y_values, image_paths, image_df['Sci
 
 
 # Customize the plot if needed
-ax.set_title('Illustrations with Scores',fontdict=font_dictionary)
+ax.set_title('Artefact Illustrations with veri-TAS Scores',fontdict=font_dictionary)
 ax.set_xlabel('Order of Entries', fontdict=font_dictionary)
-ax.set_ylabel("Model's Scores", fontdict=font_dictionary)
-ax.set_ylim([-0.2,1.2])
+ax.set_ylabel("veri-TAS Scores", fontdict=font_dictionary)
+ax.set_ylim([-0.2,1.18])
 ax.set_yticks(np.arange(0,1.1,0.2))
-ax.set_xlim([-0.2,12.9])
-ax.set_xticks(np.arange(1,13,1))
+ax.set_xlim([-0.2,15])
+ax.set_xticks(np.arange(1,15,1))
 ax.tick_params(axis='x', labelsize=16)
 ax.tick_params(axis='y', labelsize=16)
 
 #creating line at 0.5 to show differentiating line
-ax.plot([-1,13],[0.5,0.5], linestyle='--', c='grey', alpha=0.7)
+ax.plot([-1,15],[0.5,0.5], linestyle='--', c='grey', alpha=0.7)
 
 #Creating custom legends
 legend_patches = [mpatches.Patch(color='red', label='Labelled Scientific Illustration', alpha = 0.5), mpatches.Patch(color='blue', label='Labelled Art', alpha = 0.5),mpatches.Patch(color='grey', label='Binary Classification Threshold', alpha = 0.7)]
-ax.legend(handles=legend_patches, loc='upper left', prop={'size': 16})
+ax.legend(handles=legend_patches, loc='lower left', prop={'size': 16})
 plt.show();
