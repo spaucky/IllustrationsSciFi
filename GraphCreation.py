@@ -5,6 +5,7 @@ import os
 from PIL import Image
 import matplotlib.patches as mpatches
 import pandas as pd
+import statsmodels.formula.api as smf
 
 #reading in data
 image_df = pd.read_csv(os.path.join('OurDrawings','OurDrawingsScores.csv'))
@@ -79,3 +80,13 @@ ax.plot([-1,15],[0.5,0.5], linestyle='--', c='grey', alpha=0.7)
 legend_patches = [mpatches.Patch(color='red', label='Labelled Scientific Illustration', alpha = 0.5), mpatches.Patch(color='blue', label='Labelled Art', alpha = 0.5),mpatches.Patch(color='grey', label='Binary Classification Threshold', alpha = 0.7)]
 ax.legend(handles=legend_patches, loc='lower left', prop={'size': 16})
 plt.show();
+
+
+#creating linear regression model with the final image removed - as it is an overall picture
+print(f"The mean veri-TAS score across all the images is: {image_df['values'].mean()}")
+print(f"The STDEV of the veri-TAS score across all the images is: {np.std(image_df['values'])} \n")
+
+linear_regression_model = smf.ols(formula='values ~ order', data = image_df[:-1]).fit()
+print(linear_regression_model.summary());
+
+
