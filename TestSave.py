@@ -1,7 +1,9 @@
 from matplotlib import pyplot as plt
 from tensorflow.keras.metrics import Precision, Recall, BinaryAccuracy
+from tensorflow.keras.models import load_model
 import os
 
+model = load_model(os.path.join('models','ImprovedNeuralNetwork.h5'))
 fig, axes = plt.subplots(nrows=1, ncols=2, figsize=(12, 4))
 
 # Plot Binary Accuracy and Validation Binary Accuracy
@@ -29,6 +31,10 @@ precision = Precision()
 recall = Recall()
 accuracy = BinaryAccuracy()
 
+precision.reset_states()
+recall.reset_states()
+accuracy.reset_states()
+
 for batch in test.as_numpy_iterator():
     X, y = batch
     yhat = model.predict(X)
@@ -38,5 +44,3 @@ for batch in test.as_numpy_iterator():
 
 print(f'Precision: {precision.result()}, Recall: {recall.result()}, Accuracy: {accuracy.result()}')
 
-#saving model
-model.save(os.path.join('models','ScientificVSArt.h5'))
