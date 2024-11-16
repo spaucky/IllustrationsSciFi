@@ -1,5 +1,5 @@
 # IllustrationsSciFi
-This experimental Sci-Fi, Convolutional Neural Network, Scientific Illustration and Philosophy project was a collaboration between myself, Freya Gascoyne and Reuben Tyler-Wilkinson. In it we ask what separates scientific illustration from art, objectivity from ML Model Outputs and fact from fiction. The PDF can be accessed at FinalProject.pdf inside this repository.
+This experimental Sci-Fi, Convolutional Neural Network, Scientific Illustration and Philosophy project was a collaboration between myself, Freya Gascoyne and Reuben Tyler-Wilkinson. In it we ask what separates scientific illustration from art, objectivity from ML Model Outputs and fact from fiction. The PDF can be accessed at FinalOutput.pdf inside this repository.
 
 ### Understanding the files in this repository:
 - data  
